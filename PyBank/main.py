@@ -6,8 +6,7 @@
 import os
 import csv
 
-#Change to current directory and access data from csv file
-#os.chdir(os.path.dirname(__file__))
+#Access data from csv file
 bank_csv = os.path.join("Resources", "budget_data.csv")
 
 #Open and read csv, then split the data on commas

@@ -6,8 +6,7 @@
 import os
 import csv
 
-#Change to current directory and access data from csv file
-#os.chdir(os.path.dirname(__file__))
+#Access data from csv file
 poll_csv = os.path.join("Resources", "election_data.csv")
 
 #Export results
@@ -38,22 +37,25 @@ with open(poll_csv, "r") as csv_file:
             vcount[row[2]]=0
         vcount[row[2]]+=1
 
-        for candidate in vcount:
-            votes = vcount.get(candidate)
-            percent = float(votes)/float(rowcount)*100
+    print(f"Total Votes: {rowcount}")
+    report.write(f"Election Results\n")
+    report.write(f"-------------------------\n")
+    report.write(f"Total Votes: {rowcount}\n")
+
+    for candidate in vcount:
+        votes = vcount.get(candidate)
+        percent = float(votes)/float(rowcount)*100
+        
+        voter_output = (f"{candidate}: {percent:.3f}% ({votes})\n")
+        print(voter_output, end="")
+        report.write(f"-------------------------\n")
+        report.write(f"{voter_output}\n")
 
 #The winner of the election based on popular vote
-            if votes > winningvotes:
-                winningvotes=votes
-                winner=candidate
-
-print(f"Total Votes: {rowcount}")
-print(f"{candidate}: {percent:.3f}% ({vcount})")
+        if votes > winningvotes:
+            winningvotes=votes
+            winner=candidate
+    
 print(f"Winner: {winner}")
-report.write(f"Election Results\n")
-report.write(f"-------------------------\n")
-report.write(f"Total Votes: {rowcount}\n")
-report.write(f"-------------------------\n")
-report.write(f"{candidate}: {percent:.3f}% ({vcount})\n")
 report.write(f"-------------------------\n")
 report.write(f"Winner: {winner}\n")
